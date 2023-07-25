@@ -11,9 +11,9 @@ export default class LevelOne extends Phaser.Scene{
     }
 
     preload(){
-        this.load.image('background', );
+        this.load.image('background', 'clouds');
         this.load.image('tilemap', );
-        this.load.image('tileset', );
+        this.load.image('tileset', 'tileset');
         this.load.image('player', './assets/x');
     }
 
