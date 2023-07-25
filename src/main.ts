@@ -1,6 +1,7 @@
-import Phaser from "phaser";
+import Phaser, { Game } from "phaser";
 import { Game as GameType } from "phaser";
 import StartGameScene from "./scenes/MenuScene";
+import LevelOne from "./scenes/LevelOneScene";
 
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.WEBGL,
@@ -13,7 +14,8 @@ const config: Phaser.Types.Core.GameConfig = {
 			gravity: { y: 200 },
 		},
 	},
-	scene: [StartGameScene],
+
+	scene: [StartGameScene, LevelOne],
 }
 
-export default new Phaser.Game(config)
+var game = new Phaser.Game(config);
