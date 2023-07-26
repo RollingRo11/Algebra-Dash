@@ -1,18 +1,21 @@
-import { Player } from "./player"
+import TestLevel from "./scenes/TestLevel.js";
 
-var config = {
-	type: Phaser.WEBGL,
+const config = {
+	type: Phaser.AUTO,
 	parent: 'app',
 	width: 1920,
-	height: 1080,
-	physics: {
-		default: 'arcade',
-		arcade: {
-			gravity: { y: 200 },
-		},
+	heigth: 1080,
+	scale: {
+	  mode: Phaser.Scale.RESIZE,
+	  autoCenter: Phaser.Scale.CENTER_BOTH
 	},
-
-	scene: [LevelOne],
-}
-
-var game = new Phaser.Game(config);
+	scene: [TestLevel],
+	physics: {
+	  default: 'arcade',
+	  arcade: {
+		gravity: { y: 400 },
+	  },
+	}
+  };
+  
+  const game = new Phaser.Game(config);
