@@ -2,8 +2,8 @@ export default class TestLevel extends Phaser.Scene{
     preload() {
         this.load.image('background', './src/assets/images/clouds.png');
         this.load.atlas("player", './src/assets/spritesheets/Xsheet.png', './src/assets/spritesheets/Xsheet.json');
-        //tileset this.load.image('tiles', 'tileset.png');
-        //this.load.tilemapTiledJSON('map', '');
+        //this.load.image('tilesheet', './src/assets/tilesets/tileset.png');
+        //this.load.tilemapTiledJSON('tilemap', './src/assets/tilemaps/Level1AlgebraDash.json');
     }
       
     create() {
@@ -12,10 +12,19 @@ export default class TestLevel extends Phaser.Scene{
         backgroundImage.setScale(2, 1);
 
         //TILESET STUFF (PUT IN AFTER TILESET/MAP IS IMPORTED)
-        //const map = this.make.tilemap({ key: 'map' });
-        //const tileset = map.addTilesetImage('tiles');
-        //const platforms = map.createStaticLayer('Platforms', tileset, 0, 200);
+        /*
+        const map = this.make.tilemap({ key: 'tilemap' });
+        const tileset = map.addTilesetImage('levelOneTiles', 'tilesheet');
+        map.createStaticLayer('Image Layer 1', tileset)
+        map.createStaticLayer('Imagxe Layer 2', tileset)
+        map.createStaticLayer('Tile Layer 6', tileset)
+        map.createStaticLayer('Tile Layer 5', tileset)
+        map.createStaticLayer('Prop Tile', tileset)
+        map.createStaticLayer('Enemy Markers', tileset)
+        map.createStaticLayer('Tile Layer 2', tileset)
+        map.createStaticLayer('Ground Layer', tileset)
         //platforms.setCollisionByExclusion(-1, true);
+        */
       
         this.player = this.physics.add.sprite(50, 300, 'player');
         this.player.setBounce(0.1);
@@ -80,6 +89,7 @@ export default class TestLevel extends Phaser.Scene{
       }
       
     update() {
+      this.isCurling = false;
       
         if ((this.keys.left.isDown) && (this.isCurling = false)) {
           console.log('left key tapped')
@@ -92,8 +102,7 @@ export default class TestLevel extends Phaser.Scene{
         } else if (this.keys.left.isDown){
           this.player.setVelocityX(-200)
           
-        } else if (this.keys.right.isDown) {
-          this.player.setVelocityX(200);
+        } else if ((this.keys.right.isDown) && (this.isCurling)) {
           console.log('right key tapped')
           if (this.player.body.onFloor()) {console.log('floored')}
             this.player.play('curl')
