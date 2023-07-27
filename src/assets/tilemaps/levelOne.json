@@ -313,7 +313,7 @@
          "columns":26,
          "firstgid":1,
          "image":"./src/tilesets/tileset.png",
-         "imageheight":4236,
+         "imageheight":4224,
          "imagewidth":1664,
          "margin":0,
          "name":"tileset",
