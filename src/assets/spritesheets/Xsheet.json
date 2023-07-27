@@ -1,7 +1,7 @@
 {
   "frames": [
     {
-      "filename": "X_RollUp01",
+      "filename": "Curl0",
       "frame": {
         "x": 6,
         "y": 6,
@@ -26,7 +26,7 @@
       }
     },
     {
-      "filename": "X_RollUp02",
+      "filename": "Curl1",
       "frame": {
         "x": 6,
         "y": 108,
@@ -51,7 +51,7 @@
       }
     },
     {
-      "filename": "X_RollUp03",
+      "filename": "Curl2",
       "frame": {
         "x": 6,
         "y": 210,
@@ -76,7 +76,7 @@
       }
     },
     {
-      "filename": "X_RollUp04",
+      "filename": "Curl3",
       "frame": {
         "x": 6,
         "y": 312,
@@ -101,7 +101,7 @@
       }
     },
     {
-      "filename": "X_RollUp05",
+      "filename": "Curl4",
       "frame": {
         "x": 6,
         "y": 414,
@@ -126,7 +126,7 @@
       }
     },
     {
-      "filename": "X_RollUp06",
+      "filename": "Curl5",
       "frame": {
         "x": 6,
         "y": 516,
@@ -151,7 +151,7 @@
       }
     },
     {
-      "filename": "X_RollUp07",
+      "filename": "Curl6",
       "frame": {
         "x": 6,
         "y": 618,
@@ -176,7 +176,7 @@
       }
     },
     {
-      "filename": "X_RollUp08",
+      "filename": "Curl7",
       "frame": {
         "x": 6,
         "y": 720,
@@ -201,7 +201,7 @@
       }
     },
     {
-      "filename": "X_RollUp09",
+      "filename": "Curl8",
       "frame": {
         "x": 6,
         "y": 822,
@@ -226,7 +226,7 @@
       }
     },
     {
-      "filename": "X_RollUp10",
+      "filename": "Curl9",
       "frame": {
         "x": 6,
         "y": 924,
@@ -251,7 +251,7 @@
       }
     },
     {
-      "filename": "X_Rolling01",
+      "filename": "Rolling0",
       "frame": {
         "x": 6,
         "y": 1026,
@@ -276,7 +276,7 @@
       }
     },
     {
-      "filename": "X_Rolling02",
+      "filename": "Rolling1",
       "frame": {
         "x": 6,
         "y": 1128,
