@@ -1,0 +1,65 @@
+{
+  "frames": [
+    {
+      "filename": "Rapidfire1",
+      "frame": {
+        "x": 8,
+        "y": 8,
+        "w": 120,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 120,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "Rapidfire2",
+      "frame": {
+        "x": 144,
+        "y": 8,
+        "w": 112,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 4,
+        "y": 4,
+        "w": 112,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 64
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "Rapidfire_spritesheet.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 264,
+      "h": 80
+    },
+    "scale": 4
+  }
+}

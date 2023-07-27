@@ -1,0 +1,140 @@
+{
+  "frames": [
+    {
+      "filename": "portalframes/Portal01",
+      "frame": {
+        "x": 6,
+        "y": 6,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "portalframes/Portal02",
+      "frame": {
+        "x": 6,
+        "y": 114,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "portalframes/Portal03",
+      "frame": {
+        "x": 6,
+        "y": 222,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "portalframes/Portal04",
+      "frame": {
+        "x": 6,
+        "y": 330,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "filename": "portalframes/Portal05",
+      "frame": {
+        "x": 6,
+        "y": 438,
+        "w": 96,
+        "h": 96
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 96,
+        "h": 96
+      },
+      "sourceSize": {
+        "w": 96,
+        "h": 96
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ],
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "Portal_spritesheet.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 108,
+      "h": 540
+    },
+    "scale": 3
+  }
+}
