@@ -4,6 +4,7 @@ export default class TestLevel extends Phaser.Scene{
         this.load.atlas("player", './src/assets/spritesheets/Xsheet.png', './src/assets/spritesheets/Xsheet.json');
         this.load.image('tiles', './src/assets/tilesets/tileset.png');
         this.load.image('gun', './src/assets/images/SQRT.png');
+        //this.load.atlas('gun', './src/assets/spritesheets/SQRT_spritesheet.png', './src/assets/spritesheets/SQRT_spritesheet.json');
         this.load.image('middle', './src/assets/images/middle.png');
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', './src/assets/tilemaps/levelOne.json');
@@ -114,11 +115,12 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
       }
 
       getAngle(){
-        let angle = Phaser.Math.Angle.between(this.player.getCenter[0], this.player.getCenter[1], this.input.mousePointer.x , this.input.mousePointer.y)
-        console.log(angle)
+        let angle = Phaser.Math.Angle.between(this.player.getCenter[0], this.player.getCenter[1], this.input.mousePointer.x , this.input.mousePointer.y);
+        console.log(angle);
       }
       
     update() {
+    getAngle();
         if (Phaser.Input.Keyboard.JustDown(this.keys.left)){          
             this.player.play('curl')
             this.time.delayedCall(300, this.curlFinished, [], this);
