@@ -3,8 +3,8 @@
     {
       "filename": "GammaFrames/Gamma_Idle1",
       "frame": {
-        "x": 0,
-        "y": 0,
+        "x": 6,
+        "y": 6,
         "w": 90,
         "h": 96
       },
@@ -28,8 +28,8 @@
     {
       "filename": "GammaFrames/Gamma_Walk01",
       "frame": {
-        "x": 0,
-        "y": 96,
+        "x": 6,
+        "y": 114,
         "w": 90,
         "h": 96
       },
@@ -53,8 +53,8 @@
     {
       "filename": "GammaFrames/Gamma_Walk02",
       "frame": {
-        "x": 0,
-        "y": 192,
+        "x": 6,
+        "y": 222,
         "w": 90,
         "h": 96
       },
@@ -78,8 +78,8 @@
     {
       "filename": "GammaFrames/Gamma_Walk03",
       "frame": {
-        "x": 0,
-        "y": 288,
+        "x": 6,
+        "y": 330,
         "w": 90,
         "h": 96
       },
@@ -103,8 +103,8 @@
     {
       "filename": "GammaFrames/Gamma_Walk04",
       "frame": {
-        "x": 0,
-        "y": 384,
+        "x": 6,
+        "y": 438,
         "w": 90,
         "h": 96
       },
@@ -128,8 +128,8 @@
     {
       "filename": "GammaFrames/Gamma_Walk05",
       "frame": {
-        "x": 0,
-        "y": 480,
+        "x": 6,
+        "y": 546,
         "w": 90,
         "h": 96
       },
@@ -153,8 +153,8 @@
     {
       "filename": "GammaFrames/Gamma_Walk06",
       "frame": {
-        "x": 0,
-        "y": 0,
+        "x": 6,
+        "y": 6,
         "w": 90,
         "h": 96
       },
@@ -179,11 +179,11 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "texture.png",
+    "image": "Gamma_spritesheet.png",
     "format": "RGBA8888",
     "size": {
-      "w": 90,
-      "h": 576
+      "w": 102,
+      "h": 648
     },
     "scale": 3
   }
