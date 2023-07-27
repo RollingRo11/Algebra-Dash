@@ -5,8 +5,8 @@ export default class TestLevel extends Phaser.Scene{
         this.load.image('tiles', './src/assets/tilesets/tileset.png');
         this.load.image('gun', './src/assets/images/gun.png');
         this.load.image('middle', './src/assets/images/middle.png');
-    // Load the export Tiled JSON
-    this.load.tilemapTiledJSON('map', './src/assets/tilemaps/levelOne.json');
+        // Load the export Tiled JSON
+        this.load.tilemapTiledJSON('map', './src/assets/tilemaps/levelOne.json');
     }
       
     create() {
