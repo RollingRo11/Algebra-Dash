@@ -1,21 +1,28 @@
 export default class TestLevel extends Phaser.Scene{
     preload() {
-        this.load.image('background', './src/assets/images/clouds.png');
+        this.load.image('background', './src/assets/images/skyBackground.png');
         this.load.atlas("player", './src/assets/spritesheets/Xsheet.png', './src/assets/spritesheets/Xsheet.json');
         this.load.image('tiles', './src/assets/tilesets/tileset.png');
+        this.load.image('gun', './src/assets/images/gun.png');
+        this.load.image('middle', './src/assets/images/middle.png');
     // Load the export Tiled JSON
-    this.load.tilemapTiledJSON('map', './src/assets/tilemaps/test4.json');
+    this.load.tilemapTiledJSON('map', './src/assets/tilemaps/levelOne.json');
     }
       
     create() {
 
-        const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        backgroundImage.setScale(2, 1);
+        //const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
+        //backgroundImage.setScale(2, 1);
 
         //TILESET STUFF (PUT IN AFTER TILESET/MAP IS IMPORTED)
-        const map = this.make.tilemap({ key: 'map' });
+        const map = this.make.tilemap({ key: 'map',});
         const tileset = map.addTilesetImage('tileset', 'tiles');
-        const platform = map.createLayer('Tile Layer 1', tileset, 0, 0);
+        const platform = map.createLayer('Ground Layer', tileset, 0, 0);
+        const EnemyLayer = map.createLayer('Enemy Layer', tileset, 0, 0);
+        const Water = map.createLayer('Extra Water', tileset, 0, 0);
+        const props = map.createLayer('Prop Layer', tileset, 0, 0);
+        const Fence = map.createLayer('Fence', tileset, 0, 0);
+        const Crate = map.createLayer('Crate', tileset, 0, 0);
         var camera;
 
         this.cameras.main.setBounds(0, 0, 3840, 1080, true);
@@ -27,18 +34,16 @@ export default class TestLevel extends Phaser.Scene{
         //PLAYER PACKAGE:----------------------------------------------------------------
         
         this.player = this.physics.add.sprite(0, 0, 'player');
-        this.gun = this.add.sprite(0, 0, 'gun');
-        const playerPackage = this.add.container(0, 0, ['player', 'gun']);
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, platform);   
         map.setCollisionBetween(1, 999, true, 'Platform');   
-
-        //this.cameras.main.setSize(1920, 1080);
         this.cameras.main.startFollow(this.player, true);
 
-
-        
+        this.gun = this.physics.add.sprite(0, 0, 'gun');
+        this.gun.setBounce(0.1);
+        this.gun.setCollideWorldBounds(true);
+        this.physics.add.collider(this.gun, platform);
 
         this.anims.create({
           key: "curl",
@@ -95,6 +100,11 @@ export default class TestLevel extends Phaser.Scene{
       recurlFinished() {
         this.player.play('idle', true);
       }
+
+      getAngle(){
+        let angle = Phaser.Math.Angle.between(this.player.getCenter[0], this.player.getCenter[1], this.input.mousePointer.x , this.input.mousePointer.y)
+        console.log(angle)
+      }
       
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.keys.left)){          
@@ -103,28 +113,35 @@ export default class TestLevel extends Phaser.Scene{
 
         } else if (this.keys.left.isDown){
           this.player.setVelocityX(-500);
+          this.gun.setVelocityX(-500);
         
         } else if (Phaser.Input.Keyboard.JustDown(this.keys.right)){
             this.player.play('curl')
             this.time.delayedCall(300, this.curlFinished, [], this);
           } else if (this.keys.right.isDown){
             this.player.setVelocityX(500);
+            this.gun.setVelocityX(500);
+
 
         } else if (Phaser.Input.Keyboard.JustUp(this.keys.right) || Phaser.Input.Keyboard.JustUp(this.keys.left)) {
             this.player.playReverse('curl');
             this.time.delayedCall(300, this.recurlFinished, [], this);
           this.player.setVelocityX(0);
-
+          this.gun.setVelocityX(0);
         }
       
         if ((this.keys.space.isDown || this.keys.up.isDown) && this.player.body.onFloor()) {
           this.player.setVelocityY(-600);
+          this.gun.setVelocityY(-600);
         }
       
         if (this.player.body.velocity.x > 0) {
           this.player.setFlipX(false);
+          this.gun.setFlipX(false);
         } else if (this.player.body.velocity.x < 0) {
           this.player.setFlipX(true);
+          this.gun.setFlipX(true);
+
         }
       }
 }
