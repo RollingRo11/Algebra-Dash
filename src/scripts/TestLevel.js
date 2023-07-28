@@ -1,4 +1,4 @@
-import { Enemy } from './src/scripts/Enemy.js';
+import Gamma from '../scripts/Gamma';
 
 export default class TestLevel extends Phaser.Scene{
     preload() {

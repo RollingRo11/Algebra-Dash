@@ -1,5 +1,5 @@
-import TestLevel from "./scenes/TestLevel.js";
-
+import TestLevel from "./TestLevel.js";
+console.log("Hi");
 const config = {
 	type: Phaser.AUTO,
 	parent: 'app',
