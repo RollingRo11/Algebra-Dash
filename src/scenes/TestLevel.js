@@ -7,6 +7,16 @@ export default class TestLevel extends Phaser.Scene{
         this.load.image('middle', './src/assets/images/middle.png');
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', './src/assets/tilemaps/levelOne.json');
+
+        this.load.image('sqrtBL', './src/assets/images/SQRT_BottomLeft');
+        this.load.image('sqrtBR', './src/assets/images/SQRT_BottomRight');
+        this.load.image('sqrtTL', './src/assets/images/SQRT_TopLeft');
+        this.load.image('sqrtTR', './src/assets/images/SQRT_TopRight');
+        this.load.image('sqrtR', './src/assets/images/SQRT_Right');
+        this.load.image('sqrtL', './src/assets/images/SQRT_Left');
+        this.load.image('sqrtU', './src/assets/images/SQRT_UpLeft');
+        this.load.image('sqrtD', './src/assets/images/SQRT_DownRight');
+
         
     }
       
@@ -117,6 +127,30 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
         let angle = Phaser.Math.Angle.between(this.player.getCenter[0], this.player.getCenter[1], this.input.mousePointer.x , this.input.mousePointer.y)
         console.log(angle)
       }
+
+      calcDirection(){
+        if(angle <= 22.5 && angle >= -22.5){
+          //orient gun right
+          this.gun.setTexture('sqrtR');
+        } else if (angle < -22.5 && angle >= -67.5){
+          //orient gun top right
+          this.gun.setTexture('sqrtTR');
+        } else if (angle < -67.5 && angle >= -112.5){
+          //orient gun up
+          this.gun.setTexture('sqrtU');
+        } else if (angle < -112.5 && angle >= -157.5){
+          this.gun.setTexture('sqrtTL');
+        } else if (angle > 22.5 && angle <= 67.5){
+          this.gun.setTexture('sqrtBR');
+        } else if (angle > 67.5 && angle <= 112.5){
+          this.gun.setTexture('sqrtD');
+        } else if (angle > 112.5 && angle <= 157.5){
+          this.gun.setTexture('sqrtBL');
+        } else{
+          this.gun.setTexture('');
+          //orient gun left
+        }
+      }
       
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.keys.left)){          
@@ -154,8 +188,12 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
           this.player.setFlipX(true);
           this.gun.setFlipX(true);
         }
+
+        //gun stuff
         this.gun.x = this.player.x;
         this.gun.y = this.player.y;
+
+
       }
 
 }
