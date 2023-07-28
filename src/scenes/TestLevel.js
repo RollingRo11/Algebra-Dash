@@ -5,35 +5,35 @@ export default class TestLevel extends Phaser.Scene{
         this.load.image('tiles', './src/assets/tilesets/tileset.png');
         this.load.image('gun', './src/assets/images/SQRT.png');
         this.load.image('middle', './src/assets/images/middle.png');
+        this.load.image('bullet', './src/assets/images/Bullet.png');
+
         // Load the export Tiled JSON
         this.load.tilemapTiledJSON('map', './src/assets/tilemaps/levelOne.json');
 
-        this.load.image('sqrtBL', './src/assets/images/SQRT_BottomLeft');
-        this.load.image('sqrtBR', './src/assets/images/SQRT_BottomRight');
-        this.load.image('sqrtTL', './src/assets/images/SQRT_TopLeft');
-        this.load.image('sqrtTR', './src/assets/images/SQRT_TopRight');
-        this.load.image('sqrtR', './src/assets/images/SQRT_Right');
-        this.load.image('sqrtL', './src/assets/images/SQRT_Left');
-        this.load.image('sqrtU', './src/assets/images/SQRT_UpLeft');
-        this.load.image('sqrtD', './src/assets/images/SQRT_DownRight');
+        //load the gun images
+        this.load.image('sqrtBL', './src/assets/images/SQRT_BottomLeft.png');
+        this.load.image('sqrtBR', './src/assets/images/SQRT_BottomRight.png');
+        this.load.image('sqrtTL', './src/assets/images/SQRT_TopLeft.png');
+        this.load.image('sqrtTR', './src/assets/images/SQRT_TopRight.png');
+        this.load.image('sqrtR', './src/assets/images/SQRT_Right.png');
+        this.load.image('sqrtL', './src/assets/images/SQRT_Left.png');
+        this.load.image('sqrtU', './src/assets/images/SQRT_UpLeft.png');
+        this.load.image('sqrtD', './src/assets/images/SQRT_DownRight.png');
 
         
     }
+    
       
     create() {
-        this.background = this.add.tileSprite(0, 0, 6400, 2240, "background").setOrigin(0).setScrollFactor(1, 1);
+      var angle;
+      var playerBullets;
+      this.background = this.add.tileSprite(0, 0, 6400, 2240, "background").setOrigin(0).setScrollFactor(0.1, 0.1);
 
-
-        //const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        //backgroundImage.setScale(1, 1);
-
-        //TILESET STUFF (PUT IN AFTER TILESET/MAP IS IMPORTED)
         const arrayRange = (start, stop, step) =>
         Array.from({ length: (stop - start) / step + 1 },
         (value, index) => start + index * step
         );
 
-console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
         const map = this.make.tilemap({ key: 'map',});
         const tileset = map.addTilesetImage('tileset', 'tiles');
         
@@ -45,7 +45,6 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
         const props = map.createLayer('Prop Layer', tileset, 0, 0);
         const Fence = map.createLayer('Fence', tileset, 0, 0);
         const Crate = map.createLayer('Crate', tileset, 0, 0);
-        
         var camera;
 
         this.cameras.main.setBounds(0, -700, 64000, 100000, true);
@@ -124,41 +123,36 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
       getAngle(){
       	let PI = Math.PI;
       	const playerCenter = new Phaser.Math.Vector2(this.player.x, this.player.y);
-
         let temp = Phaser.Math.Angle.Between(this.player.x, this.player.y, this.input.mousePointer.x + this.cameras.main.scrollX, this.input.mousePointer.y + this.cameras.main.scrollY);
-        let angle = temp*(180/PI);
-        console.log(angle);
-        //console.log(this.player.x);
-        /*this.input.on('pointermove', function (pointer) {
-	    let cursor = pointer;
-	    let angle = Phaser.Math.Angle.Between(player.x, player.y, cursor.x + this.cameras.main.scrollX, cursor.y + this.cameras.main.scrollY)}, this);*/
+        this.angle = temp*(180/PI);
+        console.log(this.angle);
     }
 
-      getAngle(){
-        let angle = Phaser.Math.Angle.between(this.player.getCenter[0], this.player.getCenter[1], this.input.mousePointer.x , this.input.mousePointer.y)
-        console.log(angle)
-      }
-
       calcDirection(){
-        if(angle <= 22.5 && angle >= -22.5){
-          //orient gun right
+        if(this.angle <= 22.5 && this.angle >= -22.5){
           this.gun.setTexture('sqrtR');
-        } else if (angle < -22.5 && angle >= -67.5){
-          //orient gun top right
+          return('right');
+        } else if (this.angle < -22.5 && this.angle >= -67.5){
           this.gun.setTexture('sqrtTR');
-        } else if (angle < -67.5 && angle >= -112.5){
-          //orient gun up
+          return('topright');
+        } else if (this.angle < -67.5 && this.angle >= -112.5){
           this.gun.setTexture('sqrtU');
-        } else if (angle < -112.5 && angle >= -157.5){
+          return('up')
+        } else if (this.angle < -112.5 && this.angle >= -157.5){
           this.gun.setTexture('sqrtTL');
-        } else if (angle > 22.5 && angle <= 67.5){
+          return('topleft')
+        } else if (this.angle > 22.5 && this.angle <= 67.5){
           this.gun.setTexture('sqrtBR');
-        } else if (angle > 67.5 && angle <= 112.5){
+          return('bottomright');
+        } else if (this.angle > 67.5 && this.angle <= 112.5){
           this.gun.setTexture('sqrtD');
-        } else if (angle > 112.5 && angle <= 157.5){
+          return('down');
+        } else if (this.angle > 112.5 && this.angle <= 157.5){
           this.gun.setTexture('sqrtBL');
+          return('bottomleft');
         } else{
-          this.gun.setTexture('');
+          this.gun.setTexture('sqrtL');
+          return('left');
           //orient gun left
         }
       }
@@ -169,14 +163,14 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
             this.time.delayedCall(300, this.curlFinished, [], this);
 
         } else if (this.keys.left.isDown){
-          this.player.setVelocityX(-500);
+          this.player.setVelocityX(-1000);
           //this.gun.setVelocityX(-500);
         
         } else if (Phaser.Input.Keyboard.JustDown(this.keys.right)){
             this.player.play('curl')
             this.time.delayedCall(300, this.curlFinished, [], this);
           } else if (this.keys.right.isDown){
-            this.player.setVelocityX(500);
+            this.player.setVelocityX(1000);
             //this.gun.setVelocityX(500);
 
 
@@ -187,31 +181,129 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
           //this.gun.setVelocityX(0);
         }
       
-        if ((this.keys.space.isDown || this.keys.up.isDown) && this.player.body.onFloor()) {
+        if (this.keys.up.isDown && this.player.body.onFloor()) {
           this.player.setVelocityY(-400);
           //this.gun.setVelocityY(-600);
+        }
+
+        if (Phaser.Input.Keyboard.JustDown(this.keys.space)) {
+          this.shootBullet();
         }
       
         if (this.player.body.velocity.x > 0) {
           this.player.setFlipX(false);
-          this.gun.setFlipX(false);
+          //this.gun.setFlipX(false);
         } else if (this.player.body.velocity.x < 0) {
           this.player.setFlipX(true);
-          this.gun.setFlipX(true);
+          //this.gun.setFlipX(true);
         }
 
         //gun stuff
         this.gun.x = this.player.x;
         this.gun.y = this.player.y;
-<<<<<<< HEAD
-
-
-=======
-      	this.getAngle();
->>>>>>> 2dbf5e16dd05231fb5af7d9c227262e53e16b64b
+        this.getAngle();
+        this.calcDirection();
       }
 
+      shootBullet() {
+        const bulletSpeed = 5000; // Adjust the bullet speed as needed
+        const bulletOffset = 60; // Adjust the offset distance in front of the player as needed
+        const bullet = this.physics.add.sprite(this.player.x, this.player.y, 'bullet');
+      
+        // Get the direction from calcDirection
+        const direction = this.calcDirection();
+      
+        // Calculate the offset values based on the direction
+        let xOffset = 0;
+        let yOffset = 0;
+      
+        switch (direction) {
+          case 'right':
+            xOffset = bulletOffset;
+            bullet.angle = 0;
+            break;
+          case 'topright':
+            xOffset = bulletOffset * Math.cos(45);
+            yOffset = -bulletOffset * Math.sin(45);
+            bullet.angle = -45;
+            break;
+          case 'up':
+            yOffset = -bulletOffset;
+            bullet.angle = -90;
+            break;
+          case 'topleft':
+            xOffset = -bulletOffset * Math.cos(45);
+            yOffset = -bulletOffset * Math.sin(45);
+            bullet.angle = -135;
+            break;
+          case 'bottomright':
+            xOffset = bulletOffset * Math.cos(45);
+            yOffset = bulletOffset * Math.sin(45);
+            bullet.angle = 45;
+            break;
+          case 'down':
+            yOffset = bulletOffset;
+            bullet.angle = 90;
+            break;
+          case 'bottomleft':
+            xOffset = -bulletOffset * Math.cos(45);
+            yOffset = bulletOffset * Math.sin(45);
+            bullet.angle = -45;
+            break;
+          default:
+            xOffset = -bulletOffset;
+            bullet.angle = 180;
+            break;
+        }
+      
+        // Calculate the initial position of the bullet based on the player's position and the offsets
+        bullet.x += xOffset;
+        bullet.y += yOffset;
+      
+        // Calculate the velocity components based on the direction only (ignoring mouse angle)
+        switch (direction) {
+          case 'right':
+            bullet.body.velocity.x = bulletSpeed;
+            bullet.body.velocity.y = 0;
+            break;
+          case 'topright':
+            bullet.body.velocity.x = bulletSpeed * Math.cos(45);
+            bullet.body.velocity.y = -bulletSpeed * Math.sin(45);
+            break;
+          case 'up':
+            bullet.body.velocity.x = 0;
+            bullet.body.velocity.y = -bulletSpeed;
+            break;
+          case 'topleft':
+            bullet.body.velocity.x = -bulletSpeed * Math.cos(45);
+            bullet.body.velocity.y = -bulletSpeed * Math.sin(45);
+            break;
+          case 'bottomright':
+            bullet.body.velocity.x = bulletSpeed * Math.cos(45);
+            bullet.body.velocity.y = bulletSpeed * Math.sin(45);
+            break;
+          case 'down':
+            bullet.body.velocity.x = 0;
+            bullet.body.velocity.y = bulletSpeed;
+            break;
+          case 'bottomleft':
+            bullet.body.velocity.x = -bulletSpeed * Math.cos(45);
+            bullet.body.velocity.y = bulletSpeed * Math.sin(45);
+            break;
+          default:
+            bullet.body.velocity.x = -bulletSpeed;
+            bullet.body.velocity.y = 0;
+            break;
+        }
+      
+        // You may want to add the bullet to a group for better management
+        //this.playerBullets.add(bullet);
+      }
+      
+      
+      
+      
 
-}
+    }
 
 
