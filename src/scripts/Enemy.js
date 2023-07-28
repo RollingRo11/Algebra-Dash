@@ -1,4 +1,4 @@
-class Enemy extends Phaser.Physics.Arcade.Sprite
+export class Enemy extends Phaser.Physics.Arcade.Sprite
     {
         health = 3;
         constructor(image, scene, x, y)

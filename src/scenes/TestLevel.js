@@ -1,6 +1,6 @@
-import { Enemy } from './src/scripts/Enemy.js';
+import { Enemy } from './../scripts/Enemy.js';
 
-export default class TestLevel extends Phaser.Scene{
+export class TestLevel extends Phaser.Scene{
     preload() {
         this.load.image('background', './src/assets/images/skyBackground.png');
         this.load.atlas("player", './src/assets/spritesheets/Xsheet.png', './src/assets/spritesheets/Xsheet.json');
