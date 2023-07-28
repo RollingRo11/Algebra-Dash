@@ -1,0 +1,231 @@
+{
+  "frames": {
+    "GameOver1.png": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver2.png": {
+      "frame": {
+        "x": 62,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver3.png": {
+      "frame": {
+        "x": 124,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver4.png": {
+      "frame": {
+        "x": 186,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver5.png": {
+      "frame": {
+        "x": 248,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver6.png": {
+      "frame": {
+        "x": 310,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver7.png": {
+      "frame": {
+        "x": 372,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver8.png": {
+      "frame": {
+        "x": 434,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    "GameOver9.png": {
+      "frame": {
+        "x": 496,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 62,
+        "h": 9
+      },
+      "sourceSize": {
+        "w": 62,
+        "h": 9
+      },
+      "pivot": {
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  },
+  "meta": {
+    "app": "http://free-tex-packer.com",
+    "version": "0.6.7",
+    "image": "GameOver.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 558,
+      "h": 9
+    },
+    "scale": 1
+  }
+}
