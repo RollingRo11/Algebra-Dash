@@ -21,13 +21,11 @@ export default class TestLevel extends Phaser.Scene{
     }
       
     create() {
-      this.background = this.add.tileSprite(0, 0, 64000, 2240, "background")
-      .setOrigin(0)
-      .setScrollFactor(0, 1);
+        this.background = this.add.tileSprite(0, 0, 6400, 2240, "background").setOrigin(0).setScrollFactor(1, 1);
 
 
         //const backgroundImage = this.add.image(0, 0, 'background').setOrigin(0, 0);
-        //backgroundImage.setScale(2, 1);
+        //backgroundImage.setScale(1, 1);
 
         //TILESET STUFF (PUT IN AFTER TILESET/MAP IS IMPORTED)
         const arrayRange = (start, stop, step) =>
@@ -124,6 +122,19 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
       }
 
       getAngle(){
+      	let PI = Math.PI;
+      	const playerCenter = new Phaser.Math.Vector2(this.player.x, this.player.y);
+
+        let temp = Phaser.Math.Angle.Between(this.player.x, this.player.y, this.input.mousePointer.x + this.cameras.main.scrollX, this.input.mousePointer.y + this.cameras.main.scrollY);
+        let angle = temp*(180/PI);
+        console.log(angle);
+        //console.log(this.player.x);
+        /*this.input.on('pointermove', function (pointer) {
+	    let cursor = pointer;
+	    let angle = Phaser.Math.Angle.Between(player.x, player.y, cursor.x + this.cameras.main.scrollX, cursor.y + this.cameras.main.scrollY)}, this);*/
+    }
+
+      getAngle(){
         let angle = Phaser.Math.Angle.between(this.player.getCenter[0], this.player.getCenter[1], this.input.mousePointer.x , this.input.mousePointer.y)
         console.log(angle)
       }
@@ -192,9 +203,14 @@ console.log(arrayRange(1, 5, 1)); // [1,2,3,4,5]
         //gun stuff
         this.gun.x = this.player.x;
         this.gun.y = this.player.y;
+<<<<<<< HEAD
 
 
+=======
+      	this.getAngle();
+>>>>>>> 2dbf5e16dd05231fb5af7d9c227262e53e16b64b
       }
+
 
 }
 
