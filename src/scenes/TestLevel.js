@@ -32,13 +32,17 @@ export class TestLevel extends Phaser.Scene{
         this.load.image('sqrtU', './src/assets/images/SQRT_UpLeft.png');
         this.load.image('sqrtD', './src/assets/images/SQRT_DownRight.png');
 
+        this.load.atlas('Gamma', './src/assets/spritesheets/Gamma_spritesheet.png', './src/assets/spritesheets/Gamma_spritesheet.json')
         
     }
     
-      
+    sayOuch(obj1, obj2) {
+      console.log("Ouch");
+    }
+
     create() {
       var angle;
-      var playerBullets;
+
       this.background = this.add.tileSprite(0, 0, 6400, 2240, "background").setOrigin(0).setScrollFactor(0.1, 0.1);
 
         const arrayRange = (start, stop, step) =>
@@ -78,11 +82,19 @@ export class TestLevel extends Phaser.Scene{
         map.setCollision(arrayRange(1, 10000, 1), true, false, 'Ground Layer', true);
 
 
+        this.enemy1 = new Enemy(this, 300, 5400);
+        this.physics.add.collider(this.enemy1, GroundLayer);
 
+        this.playerBullets = [];
+      this.playerBulletGroup = this.physics.add.group({
+        collideWorldBounds: true,
+        onCollide: true
+      });
+      this.physics.add.collider(this.playerBulletGroup, this.enemy1, this.sayOuch, null, this);
 
         //PLAYER PACKAGE:----------------------------------------------------------------
         
-        this.player = this.physics.add.sprite(0, 0, 'player');
+        this.player = this.physics.add.sprite(160, 5400, 'player');
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.platform);   
@@ -232,12 +244,21 @@ export class TestLevel extends Phaser.Scene{
         this.gun.y = this.player.y;
         this.getAngle();
         this.calcDirection();
+
+        //Bullet collision
+        for(let i = this.playerBullets.length - 1; i >= 0; i--){
+          if(this.playerBullets[i].x < this.player.x - 1000 || this.playerBullets[i].x > this.player.x + 1000 || this.playerBullets[i].x < this.player.y - 700 || this.playerBullets[i].x > this.player.x + 700){
+            this.playerBullets.splice(i, 1);
+          }
+        }
+
       }
 
       shootBullet() {
         const bulletSpeed = 5000; // Adjust the bullet speed as needed
         const bulletOffset = 60; // Adjust the offset distance in front of the player as needed
         const bullet = this.physics.add.sprite(this.player.x, this.player.y, 'bullet');
+        this.playerBullets.push(bullet);
       
         // Get the direction from calcDirection
         const direction = this.calcDirection();
