@@ -1,7 +1,10 @@
 import { Enemy } from './../scripts/Enemy.js';
 
 export class TestLevel extends Phaser.Scene{
+  WaterLayer;
     preload() {
+
+        this.load.audio('theme', './src/assets/music/AlgebraDash.mp3');
         this.load.image('background', './src/assets/images/skies.png');
         this.load.atlas("player", './src/assets/spritesheets/Xsheet.png', './src/assets/spritesheets/Xsheet.json');
         this.load.image('gun', './src/assets/images/SQRT.png');
@@ -9,7 +12,7 @@ export class TestLevel extends Phaser.Scene{
         this.load.image('bullet', './src/assets/images/Bullet.png');
 
         // Load the export Tiled JSON
-        this.load.tilemapTiledJSON('map', './src/assets/tilemaps/Level1AlgebraDashRealest.json');
+        this.load.tilemapTiledJSON('map', './src/assets/tilemaps/final.json');
 
         //load tilesets
         this.load.image('tileset', './src/assets/tilesets/tileset.png');
@@ -37,14 +40,23 @@ export class TestLevel extends Phaser.Scene{
     
       
     create() {
+
+    const arrayRange = (start, stop, step) =>
+    Array.from(
+    { length: (stop - start) / step + 1 },
+    (value, index) => start + index * step
+    );
+  
+    this.matter.world.on('collisionstart', (event, bodyA, bodyB) => {
+      if (bodyA.gameObject === this.player && bodyB.gameObject === WaterLayer) {
+        this.restart();
+      }
+    });
+
       var angle;
       var playerBullets;
       this.background = this.add.tileSprite(0, 0, 6400, 2240, "background").setOrigin(0).setScrollFactor(0.1, 0.1);
-
-        const arrayRange = (start, stop, step) =>
-        Array.from({ length: (stop - start) / step + 1 },
-        (value, index) => start + index * step
-        );
+      this.music  = this.sound.add('theme');
 
         const map = this.make.tilemap({ key: 'map',});
 
@@ -58,40 +70,35 @@ export class TestLevel extends Phaser.Scene{
         const Lava = map.addTilesetImage('Lava', 'Lava');
         
         const tileys = [Tileset, RainforestTileset, sunnyLandProps, CaveTileset, CaveProps, CaveProps2, Lava, LavaTileset1]
+        const GroundLayer = map.createLayer('Ground Layer', Tileset, 0, 0);
 
+        GroundLayer.setCollisionByProperty({ collides: true });
+        this.matter.world.convertTilemapLayer(GroundLayer);
+        
+        
 
-        const GroundLayer = map.createLayer('Ground Layer', tileys, 0, 0);
         const WaterLayer = map.createLayer('Water Layer', tileys, 0, 0);
         const PropLayer = map.createLayer('Prop Layer', tileys, 0, 0);
         const BackgroundLayer = map.createLayer('Background Layer', tileys, 0, 0);
         const CrateLayer = map.createLayer('Crate Layer', tileys, 0, 0);
 
-        //GroundLayer.resizeWorld();
+        WaterLayer.setCollisionByProperty({collides: true});
+        this.matter.world.convertTilemapLayer(WaterLayer);
 
-        //GroundLayer.setCollisionByProperty({ collides: true });
-
-        
+        map.setCollisionByExclusion([arrayRange(0, 100000, 1)]);
         var camera;
 
-        this.cameras.main.setBounds(0, -700, 64000, 100000, true);
-        this.physics.world.setBounds(0, -700, 64000, 100000);
-        map.setCollision(arrayRange(1, 10000, 1), true, false, 'Ground Layer', true);
-
-
+        this.cameras.main.setBounds(0, -700, 64000, 7000, true);
+        this.matter.world.setBounds(0, -700, 64000, 100000, true);
 
 
         //PLAYER PACKAGE:----------------------------------------------------------------
         
-        this.player = this.physics.add.sprite(0, 0, 'player');
+        this.player = this.matter.add.sprite(200, 5000, 'player');
         this.player.setBounce(0.1);
-        this.player.setCollideWorldBounds(true);
-        this.physics.add.collider(this.player, this.platform);   
-        map.setCollisionBetween(1, 999, true, GroundLayer);   
+        this.matter.add.gameObject(this.player);
+
         this.cameras.main.startFollow(this.player, true);
-
-        GroundLayer.setCollisionByExclusion([-1]);
-        this.physics.add.collider(this.player, GroundLayer);
-
         this.gun = this.add.sprite(0, 0, 'gun');
 
         this.anims.create({
@@ -139,7 +146,7 @@ export class TestLevel extends Phaser.Scene{
         
         //generate keys for user input
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.keys = this.input.keyboard.addKeys({ up: 'W', left: 'A', down: 'S', right: 'D', space: 'SPACE' });
+        this.keys = this.input.keyboard.addKeys({ up: 'W', left: 'A', down: 'S', right: 'D', space: 'SPACE', P: 'P'});
       }
 
       curlFinished() {
@@ -187,21 +194,27 @@ export class TestLevel extends Phaser.Scene{
       }
       
     update() {
+
+       if (Phaser.Input.Keyboard.JustDown(this.keys.P)){
+        console.log('entered');
+          this.music.play;
+
+      }
+
         if (Phaser.Input.Keyboard.JustDown(this.keys.left)){          
             this.player.play('curl')
             this.time.delayedCall(300, this.curlFinished, [], this);
 
         } else if (this.keys.left.isDown){
-          this.player.setVelocityX(-500);
+          this.player.setVelocityX(-10);
           //this.gun.setVelocityX(-500);
         
         } else if (Phaser.Input.Keyboard.JustDown(this.keys.right)){
             this.player.play('curl')
             this.time.delayedCall(300, this.curlFinished, [], this);
           } else if (this.keys.right.isDown){
-            this.player.setVelocityX(500);
+            this.player.setVelocityX(10);
             //this.gun.setVelocityX(500);
-
 
         } else if (Phaser.Input.Keyboard.JustUp(this.keys.right) || Phaser.Input.Keyboard.JustUp(this.keys.left)) {
             this.player.playReverse('curl');
@@ -209,11 +222,15 @@ export class TestLevel extends Phaser.Scene{
           this.player.setVelocityX(0);
           //this.gun.setVelocityX(0);
         }
-      
-        if (Phaser.Input.Keyboard.JustDown(this.keys.up) && this.player.body.onFloor()) {
-          this.player.setVelocityY(-600);
-          //this.gun.setVelocityY(-600);
-        }
+
+        if (Phaser.Input.Keyboard.JustUp(this.keys.up)) {
+          console.log('jumped');
+          this.player.setVelocityY(-10);
+           // Reset the flag so the player can't jump continuously
+      }
+
+      //this.player.setOnCollideWith(this.WaterLayer, this.restart());
+      //WaterLayer.setOnCollide(this.restart());
 
         if (Phaser.Input.Keyboard.JustDown(this.keys.space)) {
           this.shootBullet();
@@ -235,9 +252,10 @@ export class TestLevel extends Phaser.Scene{
       }
 
       shootBullet() {
-        const bulletSpeed = 5000; // Adjust the bullet speed as needed
-        const bulletOffset = 60; // Adjust the offset distance in front of the player as needed
-        const bullet = this.physics.add.sprite(this.player.x, this.player.y, 'bullet');
+        const bulletSpeed = 100; // Adjust the bullet speed as needed
+        const bulletOffset = 70; // Adjust the offset distance in front of the player as needed
+        const bullet = this.matter.add.sprite(this.player.x, this.player.y, 'bullet').setIgnoreGravity(true);
+        
       
         // Get the direction from calcDirection
         const direction = this.calcDirection();
@@ -289,44 +307,39 @@ export class TestLevel extends Phaser.Scene{
         bullet.x += xOffset;
         bullet.y += yOffset;
       
-        // Calculate the velocity components based on the direction only (ignoring mouse angle)
         switch (direction) {
           case 'right':
-            bullet.body.velocity.x = bulletSpeed;
-            bullet.body.velocity.y = 0;
+            bullet.setVelocity(bulletSpeed, 0);
             break;
           case 'topright':
-            bullet.body.velocity.x = bulletSpeed * Math.cos(45);
-            bullet.body.velocity.y = -bulletSpeed * Math.sin(45);
+            bullet.setVelocity(bulletSpeed, -bulletSpeed);
             break;
           case 'up':
-            bullet.body.velocity.x = 0;
-            bullet.body.velocity.y = -bulletSpeed;
+            bullet.setVelocity(0, -bulletSpeed);
             break;
           case 'topleft':
-            bullet.body.velocity.x = -bulletSpeed * Math.cos(45);
-            bullet.body.velocity.y = -bulletSpeed * Math.sin(45);
+            bullet.setVelocity(-bulletSpeed, -bulletSpeed);
             break;
           case 'bottomright':
-            bullet.body.velocity.x = bulletSpeed * Math.cos(45);
-            bullet.body.velocity.y = bulletSpeed * Math.sin(45);
+            bullet.setVelocity(bulletSpeed, bulletSpeed);
             break;
           case 'down':
-            bullet.body.velocity.x = 0;
-            bullet.body.velocity.y = bulletSpeed;
+            bullet.setVelocity(0, bulletSpeed);
             break;
           case 'bottomleft':
-            bullet.body.velocity.x = -bulletSpeed * Math.cos(45);
-            bullet.body.velocity.y = bulletSpeed * Math.sin(45);
+            bullet.setVelocity(-bulletSpeed, bulletSpeed);
             break;
           default:
-            bullet.body.velocity.x = -bulletSpeed;
-            bullet.body.velocity.y = 0;
+            bullet.setVelocity(-bulletSpeed, 0);
             break;
         }
       
         // You may want to add the bullet to a group for better management
         //this.playerBullets.add(bullet);
+      }
+
+      restart(){
+        this.scene.restart;
       }
       
       

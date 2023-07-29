@@ -11,10 +11,10 @@ const config = {
 	},
 	scene: [TestLevel],
 	physics: {
-	  default: 'arcade',
-	  arcade: {
-		gravity: { y: 400 },
-	  },
+		default: "matter",
+		matter: { 
+		  		debug: true
+		}
 	}
   };
   
