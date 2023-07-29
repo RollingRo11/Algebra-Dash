@@ -35,10 +35,14 @@ export class TestLevel extends Phaser.Scene{
         this.load.image('sqrtU', './src/assets/images/SQRT_UpLeft.png');
         this.load.image('sqrtD', './src/assets/images/SQRT_DownRight.png');
 
+        this.load.atlas('Gamma', './src/assets/spritesheets/Gamma_spritesheet.png', './src/assets/spritesheets/Gamma_spritesheet.json')
         
     }
     
-      
+    sayOuch(obj1, obj2) {
+      console.log("Ouch");
+    }
+
     create() {
 
     const arrayRange = (start, stop, step) =>
@@ -54,7 +58,7 @@ export class TestLevel extends Phaser.Scene{
     });
 
       var angle;
-      var playerBullets;
+
       this.background = this.add.tileSprite(0, 0, 6400, 2240, "background").setOrigin(0).setScrollFactor(0.1, 0.1);
       this.music  = this.sound.add('theme');
 
@@ -91,6 +95,12 @@ export class TestLevel extends Phaser.Scene{
         this.cameras.main.setBounds(0, -700, 64000, 7000, true);
         this.matter.world.setBounds(0, -700, 64000, 100000, true);
 
+        this.playerBullets = [];
+      this.playerBulletGroup = this.physics.add.group({
+        collideWorldBounds: true,
+        onCollide: true
+      });
+      this.physics.add.collider(this.playerBulletGroup, this.enemy1, this.sayOuch, null, this);
 
         //PLAYER PACKAGE:----------------------------------------------------------------
         
@@ -249,14 +259,21 @@ export class TestLevel extends Phaser.Scene{
         this.gun.y = this.player.y;
         this.getAngle();
         this.calcDirection();
+
+        //Bullet collision
+        for(let i = this.playerBullets.length - 1; i >= 0; i--){
+          if(this.playerBullets[i].x < this.player.x - 1000 || this.playerBullets[i].x > this.player.x + 1000 || this.playerBullets[i].x < this.player.y - 700 || this.playerBullets[i].x > this.player.x + 700){
+            this.playerBullets.splice(i, 1);
+          }
+        }
+
       }
 
       shootBullet() {
         const bulletSpeed = 100; // Adjust the bullet speed as needed
         const bulletOffset = 70; // Adjust the offset distance in front of the player as needed
         const bullet = this.matter.add.sprite(this.player.x, this.player.y, 'bullet').setIgnoreGravity(true);
-        
-      
+              
         // Get the direction from calcDirection
         const direction = this.calcDirection();
       
