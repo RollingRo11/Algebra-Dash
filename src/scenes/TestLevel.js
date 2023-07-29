@@ -2,16 +2,26 @@ import { Enemy } from './../scripts/Enemy.js';
 
 export class TestLevel extends Phaser.Scene{
     preload() {
-        this.load.image('background', './src/assets/images/skyBackground.png');
+        this.load.image('background', './src/assets/images/skies.png');
         this.load.atlas("player", './src/assets/spritesheets/Xsheet.png', './src/assets/spritesheets/Xsheet.json');
-        this.load.image('tiles', './src/assets/tilesets/tileset.png');
         this.load.image('gun', './src/assets/images/SQRT.png');
         this.load.image('middle', './src/assets/images/middle.png');
         this.load.image('bullet', './src/assets/images/Bullet.png');
 
         // Load the export Tiled JSON
-        this.load.tilemapTiledJSON('map', './src/assets/tilemaps/levelOne.json');
+        this.load.tilemapTiledJSON('map', './src/assets/tilemaps/Level1AlgebraDashRealest.json');
 
+        //load tilesets
+        this.load.image('tileset', './src/assets/tilesets/tileset.png');
+        this.load.image('RainforestTileset', './src/assets/tilesets/Tileset (1).png');
+        this.load.image('sunnylandProps', './src/assets/tilesets/props.png');
+        //this.load.image('PlatformDemo(1)', './src/assets/tilesets/PlatformDemo(1).png');
+        this.load.image('Cave Tileset', './src/assets/tilesets/mainlev_build.png');
+        this.load.image('Cave Props 2', './src/assets/tilesets/props2.png');
+        this.load.image('Cave Props', './src/assets/tilesets/props1.png');
+        this.load.image('LavaTile set (1)', './src/assets/tilesets/LavaTile set (1).png');
+        this.load.image('Lava', './src/assets/tilesets/Lava_64x32 (1).png');
+        //this.load.image('PlatformBurnt (1)', './src/assets/tilesets/PlatformBurnt (1).png');
         //load the gun images
         this.load.image('sqrtBL', './src/assets/images/SQRT_BottomLeft.png');
         this.load.image('sqrtBR', './src/assets/images/SQRT_BottomRight.png');
@@ -37,21 +47,36 @@ export class TestLevel extends Phaser.Scene{
         );
 
         const map = this.make.tilemap({ key: 'map',});
-        const tileset = map.addTilesetImage('tileset', 'tiles');
-        
-        this.platform = map.createLayer('Ground Layer', tileset, 0, 0);
-        this.platform.setCollisionByProperty({ collides: true });
 
-        const EnemyLayer = map.createLayer('Enemy Layer', tileset, 0, 0);
-        const Water = map.createLayer('Extra Water', tileset, 0, 0);
-        const props = map.createLayer('Prop Layer', tileset, 0, 0);
-        const Fence = map.createLayer('Fence', tileset, 0, 0);
-        const Crate = map.createLayer('Crate', tileset, 0, 0);
+        const Tileset = map.addTilesetImage('tileset', 'tileset');
+        const RainforestTileset = map.addTilesetImage('RainforestTileset', 'RainforestTileset');
+        const sunnyLandProps = map.addTilesetImage('sunnylandProps', 'sunnylandProps');
+        const CaveTileset = map.addTilesetImage('Cave Tileset', 'Cave Tileset');
+        const CaveProps2 = map.addTilesetImage('Cave Props 2', 'Cave Props 2');
+        const CaveProps = map.addTilesetImage('Cave Props', 'Cave Props');
+        const LavaTileset1 = map.addTilesetImage('LavaTile set (1)', 'LavaTile set (1)');
+        const Lava = map.addTilesetImage('Lava', 'Lava');
+        
+        const tileys = [Tileset, RainforestTileset, sunnyLandProps, CaveTileset, CaveProps, CaveProps2, Lava, LavaTileset1]
+
+
+        const GroundLayer = map.createLayer('Ground Layer', tileys, 0, 0);
+        const WaterLayer = map.createLayer('Water Layer', tileys, 0, 0);
+        const PropLayer = map.createLayer('Prop Layer', tileys, 0, 0);
+        const BackgroundLayer = map.createLayer('Background Layer', tileys, 0, 0);
+        const CrateLayer = map.createLayer('Crate Layer', tileys, 0, 0);
+
+        //GroundLayer.resizeWorld();
+
+        //GroundLayer.setCollisionByProperty({ collides: true });
+
+        
         var camera;
 
         this.cameras.main.setBounds(0, -700, 64000, 100000, true);
         this.physics.world.setBounds(0, -700, 64000, 100000);
         map.setCollision(arrayRange(1, 10000, 1), true, false, 'Ground Layer', true);
+
 
 
 
@@ -61,8 +86,11 @@ export class TestLevel extends Phaser.Scene{
         this.player.setBounce(0.1);
         this.player.setCollideWorldBounds(true);
         this.physics.add.collider(this.player, this.platform);   
-        map.setCollisionBetween(1, 999, true, this.platform);   
+        map.setCollisionBetween(1, 999, true, GroundLayer);   
         this.cameras.main.startFollow(this.player, true);
+
+        GroundLayer.setCollisionByExclusion([-1]);
+        this.physics.add.collider(this.player, GroundLayer);
 
         this.gun = this.add.sprite(0, 0, 'gun');
 
@@ -183,7 +211,7 @@ export class TestLevel extends Phaser.Scene{
         }
       
         if (Phaser.Input.Keyboard.JustDown(this.keys.up) && this.player.body.onFloor()) {
-          this.player.setVelocityY(-400);
+          this.player.setVelocityY(-600);
           //this.gun.setVelocityY(-600);
         }
 
